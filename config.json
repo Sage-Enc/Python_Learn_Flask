@@ -1,0 +1,13 @@
+{
+  "params":
+  {
+    "local_server" : "True",
+    "local_uri": "mysql://root:@localhost/sage_shastra",
+    "prod_uri": "mysql://root:@localhost/sage_shastra",
+    "fb_url": "https://www.facebook.com/rutveek.mohurle.7/",
+    "tw_url": "https://twitter.com/MRutveek",
+    "gh_url": "https://github.com/Sage-Enc",
+    "site_name": "Sage Shastra",
+    "site_tag": "The Sage That Writes Code"
+  }
+}
