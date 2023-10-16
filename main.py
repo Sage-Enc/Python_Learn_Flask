@@ -38,9 +38,25 @@ class Contact(db.Model):
     date = db.Column(db.String(20), nullable=True)
 
 
+class Posts(db.Model):
+    # id, title, img_name, slug, content, date
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(256), nullable=False)
+    img_name = db.Column(db.String(50), nullable=True)
+    slug = db.Column(db.String(256), nullable=False)
+    content = db.Column(db.String, nullable=False)
+    date = db.Column(db.String(20), nullable=True)
+
+
+@app.route("/signin")
+def signin():
+    return render_template('signin.html', params=params)
+
+
 @app.route("/")
 def home():
-    return render_template('index.html', params=params)
+    posts = Posts.query.filter_by().all()
+    return render_template('index.html', params=params, posts=posts)
 
 
 @app.route("/about")
@@ -48,9 +64,9 @@ def about():
     return render_template('about.html', params=params)
 
 
-@app.route("/contact", methods={'GET', 'POST'})
+@app.route("/contact", methods=['GET', 'POST'])
 def contact():
-    if request.method == ['POST']:
+    if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
         phno = request.form.get('phno')
@@ -61,15 +77,21 @@ def contact():
         mail.send_message(
             subject=f"You Have Received A New Message from {name}",
             sender=email,
-            recipients=params['mail_user'],
+            recipients=[params['mail_user']],
             body=msg + "\n" + phno
         )
     return render_template('contact.html', params=params)
 
 
-@app.route("/post")
-def post():
-    return render_template('post.html', params=params)
+# @app.route("/post")
+# def post():
+#     return render_template('post.html', params=params)
+
+
+@app.route("/post/<string:post_slug>", methods=["GET"])
+def post_route(post_slug):
+    post = Posts.query.filter_by(slug=post_slug).first()
+    return render_template('post.html', params=params, post=post)
 
 
 app.run(debug=True)

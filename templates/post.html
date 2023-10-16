@@ -2,17 +2,18 @@
 
 {% block body %}
         <!-- Page Header-->
-        <header class="masthead" style="background-image: url(' {{ url_for('static', filename='assets/img/post-bg.jpg') }} ')">
+        {% set pname = "assets/img/" + post.img_name %}
+        <header class="masthead" style="background-image: url(' {{ url_for('static', filename=pname) }} ')">
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="post-heading">
-                            <h1>Man must explore, and this is exploration at its greatest</h1>
+                            <h1>{{ post.title }}</h1>
                             <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
                             <span class="meta">
                                 Posted by
                                 <a href="#!">Start Bootstrap</a>
-                                on August 24, 2023
+                                {{ post.date }}
                             </span>
                         </div>
                     </div>
